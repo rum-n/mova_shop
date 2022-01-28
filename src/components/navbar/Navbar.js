@@ -1,25 +1,31 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import { styled } from "@material-ui/core/styles";
+import { purple } from "@material-ui/core/colors";
 import "./styles.css";
 
 const Navbar = () => {
+  const CartButton = styled(Button)(({ theme }) => ({
+    marginRight: "5rem",
+    "&:hover": {
+      backgroundColor: purple[400],
+    },
+  }));
+
   return (
-    <header>
+    <nav>
       <NavLink to="/">
         <div className="logo">
-          <h1>MOVA SHOP</h1>
+          <h1>
+            <span>MOVA</span> SHOP
+          </h1>
         </div>
       </NavLink>
-      <nav>
-        <ul className="menu">
-          <li>
-            <NavLink className="main-blue" to="/main">
-              <button>Join Now</button>
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-    </header>
+      <CartButton variant="outlined" href="/cart">
+        Cart
+      </CartButton>
+    </nav>
   );
 };
 

@@ -1,0 +1,47 @@
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo h1 span {
+  color: #cc59bd;
+}
+
+nav button {
+  margin-right: 5rem;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 0.8rem 2rem;
+  border: 2px solid #000;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+
+nav button:hover {
+  background-color: #cc59bd;
+  transition: 0.3s;
+}
+
+nav a,
+a:visited {
+  text-decoration: none;
+  color: #000;
+  font-size: 1.4rem;
+}
+
+@media (min-width: 851px) {
+  .logo {
+    margin: 2rem 7rem;
+  }
+}
+
+/* If the screen size is 850px wide or less */
+@media (max-width: 850px) {
+  .logo {
+    margin: 2rem 0rem 2rem 2rem;
+  }
+}
