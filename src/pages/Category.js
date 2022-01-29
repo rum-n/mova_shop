@@ -16,7 +16,6 @@ const Category = () => {
   const [items, setItems] = useState([]);
   const params = useParams();
   const [loading, setLoading] = useState(true);
-  // const currentItem = items.filter((item) => item.title === match.params.id);
 
   const itemsInCategory = `https://5m6exoj3o7.execute-api.eu-west-1.amazonaws.com/prod/items?category=${params.categoryId}`;
 
