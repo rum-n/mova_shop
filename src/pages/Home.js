@@ -23,7 +23,7 @@ const Home = () => {
     axios.get(collectionsUrl).then((response) => {
       setCollections(response.data);
     });
-  }, []);
+  }, [collectionsUrl, categoriesUrl]);
 
   const toggleCategory = () => {
     setActiveMenu("category");
@@ -59,11 +59,12 @@ const Home = () => {
         {activeMenu === "collection" &&
           collections.map((option) => (
             <Link
+              key={option.collectionId}
               to={{
                 pathname: `/collection/${option.collectionId}`,
               }}
             >
-              <div key={option.collectionId} className="menu-card">
+              <div className="menu-card">
                 <p>{option.displayName}</p>
               </div>
             </Link>
@@ -72,11 +73,12 @@ const Home = () => {
         {activeMenu === "category" &&
           categories.map((option) => (
             <Link
+              key={option.categoryId}
               to={{
                 pathname: `/category/${option.categoryId}`,
               }}
             >
-              <div key={option.categoryId} className="menu-card">
+              <div className="menu-card">
                 <p>{option.displayName}</p>
               </div>
             </Link>

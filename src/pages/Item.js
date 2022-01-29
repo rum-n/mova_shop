@@ -1,18 +1,37 @@
-import React, { useState } from "react";
-import Paper from "@material-ui/core/Paper";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Paper, Container } from "@material-ui/core";
+import axios from "axios";
 import "./styles.css";
 
-const Item = ({ match }) => {
-  const [data] = useState([]);
-  const currentItem = data.filter((item) => item.title === match.params.id);
+const Item = () => {
+  const [items, setItems] = useState([]);
+  const [singleItem, setSingleItem] = useState({});
+  const params = useParams();
+
+  const itemsDetails = ` https://5m6exoj3o7.execute-api.eu-west-1.amazonaws.com/prod/items`;
+
+  useEffect(() => {
+    axios
+      .get(itemsDetails)
+      .then((response) => {
+        setItems(response.data);
+        console.log(response.data);
+        console.log(params.itemId);
+      })
+      .then(() => {
+        setSingleItem(items.filter((item) => item.itemId === params.itemId));
+      });
+    console.log(singleItem);
+  }, [itemsDetails]);
 
   return (
-    <Paper elevation={3}>
-      <div className="item-info">
-        <img src={currentItem[0].img} alt={currentItem[0].title} />
-        <h1>{match.params.id}</h1>
-      </div>
-    </Paper>
+    <Container>
+      {/* {items.map((item) => (
+        <Paper elevation={3}>{item.itemId === params.itemId}</Paper>
+        ))} */}
+      <Paper elevation={3}>{singleItem.displayName}</Paper>
+    </Container>
   );
 };
 
