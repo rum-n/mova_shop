@@ -1,10 +1,5 @@
 /* HOME */
 
-.home-wrapper {
-  width: 80%;
-  margin: 3rem auto;
-}
-
 .main-menu {
   display: flex;
   flex-direction: row;
@@ -24,6 +19,7 @@
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
+  background-color: #ffffff;
 }
 
 .categories:hover,
@@ -46,6 +42,7 @@
   cursor: pointer;
   transition: 0.3s;
   border: 1px solid black;
+  background-color: #ffffff;
 }
 
 .menu-img {
@@ -72,6 +69,7 @@
   cursor: pointer;
   font-size: 1.3rem;
   transition: 0.3s;
+  background-color: #ffffff;
 }
 
 .menu-card:hover {
@@ -106,5 +104,10 @@
 
 .cart-wrapper {
   width: 50%;
+  margin: auto;
+}
+
+.no-items-msg {
+  position: absolute;
   margin: auto;
 }

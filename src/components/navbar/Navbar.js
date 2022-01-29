@@ -8,6 +8,10 @@ import "./styles.css";
 const Navbar = () => {
   const CartButton = styled(Button)(({ theme }) => ({
     marginRight: "5rem",
+    border: "2px solid black",
+    fontWeight: "600",
+    fontSize: "1  rem",
+    backgroundColor: "#ffffff",
     "&:hover": {
       backgroundColor: purple[400],
     },

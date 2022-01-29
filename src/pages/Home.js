@@ -58,8 +58,12 @@ const Home = () => {
       <div className="secondary-menu">
         {activeMenu === "collection" &&
           collections.map((option) => (
-            <Link to={option.collectionId}>
-              <div className="menu-card">
+            <Link
+              to={{
+                pathname: `/collection/${option.collectionId}`,
+              }}
+            >
+              <div key={option.collectionId} className="menu-card">
                 <p>{option.displayName}</p>
               </div>
             </Link>
@@ -67,8 +71,12 @@ const Home = () => {
 
         {activeMenu === "category" &&
           categories.map((option) => (
-            <Link to={option.categoryId}>
-              <div className="menu-card">
+            <Link
+              to={{
+                pathname: `/category/${option.categoryId}`,
+              }}
+            >
+              <div key={option.categoryId} className="menu-card">
                 <p>{option.displayName}</p>
               </div>
             </Link>
