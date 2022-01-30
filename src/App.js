@@ -1,6 +1,7 @@
 import React from "react";
 import Home from "./pages/Home";
 import Navbar from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
 import Item from "./pages/Item";
 import Category from "./pages/Category";
 import Collection from "./pages/Collection";
@@ -18,6 +19,7 @@ function App() {
         <Route path="/item/:itemId" element={<Item />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

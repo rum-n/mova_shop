@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./styles.css";
 
 const Cart = () => {
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]);
 
   return (
     <div className="cart-wrapper">
-      <div className="order-summary">
+      {/* <div className="order-summary">
         <h1>Order summary</h1>
         <div className="order-summary-details">
           {items[0] && (
@@ -15,7 +15,7 @@ const Cart = () => {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
