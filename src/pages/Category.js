@@ -21,7 +21,7 @@ import "./styles.css";
 const Category = () => {
   const [items, setItems] = useState([]);
   const params = useParams();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState([]);
 
   const itemsInCategory = `https://5m6exoj3o7.execute-api.eu-west-1.amazonaws.com/prod/items?category=${params.categoryId}`;
@@ -71,6 +71,7 @@ const Category = () => {
 
   const AddToCartButton = styled(Button)(() => ({
     margin: "1rem 0rem 0.5rem 0.5rem",
+    padding: "0.3rem 0.7rem",
     border: "1px solid #aaa",
     fontWeight: "600",
     backgroundColor: purple[50],
@@ -82,6 +83,7 @@ const Category = () => {
 
   const DetailsButton = styled(Button)(() => ({
     margin: "1rem 0rem 0.5rem 0.5rem",
+    padding: "0.3rem 0.7rem",
     border: "1px solid #aaa",
     fontWeight: "600",
     backgroundColor: "#ffffff",
@@ -92,9 +94,9 @@ const Category = () => {
   }));
 
   useEffect(() => {
+    setLoading(true);
     axios.get(itemsInCategory).then((response) => {
       setItems(response.data);
-      console.log(response.data);
     });
     setLoading(false);
   }, [itemsInCategory]);
@@ -108,86 +110,84 @@ const Category = () => {
         </Box>
       )}
       {loading && <p>Loading...</p>}
-      {!loading && (
+      {!loading && items.length > 0 ? (
         <Grid container spacing={2}>
-          {items.length > 0 ? (
-            items.map((item) => (
-              <Grid item xs={3} key={item.itemId}>
-                <Card variant="outlined">
-                  <CardMedia
-                    component="img"
-                    height="350"
-                    image={item.picture}
-                    alt={item.displayName}
-                  />
-                  <ThemeProvider theme={theme}>
-                    <Typography gutterBottom variant="h5">
-                      {item.displayName}
-                    </Typography>
-                    <Box
-                      sx={{
-                        paddingLeft: "1rem",
-                        marginBottom: "1rem",
-                        marginTop: "-1rem",
-                        fontSize: "0.2rem",
-                      }}
-                    >
-                      {item.tags.map((tag) => (
-                        <Chip
-                          key={tag}
-                          label={tag}
-                          size="small"
-                          onClick={() => tagClicked(tag)}
-                        />
-                      ))}
-                    </Box>
-
-                    <Typography color="primary" variant="subtitle1">
-                      ${item.currentPrice}
-                    </Typography>
-                    <Typography color="secondary" variant="subtitle2">
-                      ${item.originalPrice}
-                    </Typography>
-                  </ThemeProvider>
-                  <Button
-                    id="basic-button"
-                    aria-controls={open ? "basic-menu" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                    onClick={handleClick}
-                  ></Button>
-                  <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                      "aria-labelledby": "basic-button",
+          {items.map((item) => (
+            <Grid item xs={3} key={item.itemId}>
+              <Card variant="outlined">
+                <CardMedia
+                  component="img"
+                  height="350"
+                  image={item.picture}
+                  alt={item.displayName}
+                />
+                <ThemeProvider theme={theme}>
+                  <Typography gutterBottom variant="h5">
+                    {item.displayName}
+                  </Typography>
+                  <Box
+                    sx={{
+                      paddingLeft: "1rem",
+                      marginBottom: "1rem",
+                      marginTop: "-1rem",
+                      fontSize: "0.2rem",
                     }}
                   >
-                    {item.availableSizes.map((size) => (
-                      <MenuItem onClick={handleClose}>{size}</MenuItem>
+                    {item.tags.map((tag) => (
+                      <Chip
+                        key={tag}
+                        label={tag}
+                        size="small"
+                        onClick={() => tagClicked(tag)}
+                      />
                     ))}
-                  </Menu>
-                  <CardActions>
-                    <Link
-                      to={{
-                        pathname: `/item/${item.itemId}`,
-                      }}
-                    >
-                      <DetailsButton size="small">View Details</DetailsButton>
-                    </Link>
-                    <AddToCartButton size="small">Add to Cart</AddToCartButton>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))
-          ) : (
-            <h2 className="no-items-msg">
-              {"Sorry, there are currently no items in this category!"}
-            </h2>
-          )}
+                  </Box>
+
+                  <Typography color="primary" variant="subtitle1">
+                    ${item.currentPrice}
+                  </Typography>
+                  <Typography color="secondary" variant="subtitle2">
+                    ${item.originalPrice}
+                  </Typography>
+                </ThemeProvider>
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                ></Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  {item.availableSizes.map((size) => (
+                    <MenuItem onClick={handleClose}>{size}</MenuItem>
+                  ))}
+                </Menu>
+                <CardActions>
+                  <Link
+                    to={{
+                      pathname: `/item/${item.itemId}`,
+                    }}
+                  >
+                    <DetailsButton size="small">View Details</DetailsButton>
+                  </Link>
+                  <AddToCartButton size="small">Add to Cart</AddToCartButton>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
+      ) : (
+        <h2 className="no-items-msg">
+          {"Sorry, there are currently no items in this category!"}
+        </h2>
       )}
     </Container>
   );

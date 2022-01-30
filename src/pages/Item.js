@@ -24,6 +24,10 @@ const Item = () => {
   const open = Boolean(anchorEl);
   const itemsDetails = ` https://5m6exoj3o7.execute-api.eu-west-1.amazonaws.com/prod/items`;
 
+  theme.typography.h5 = {
+    padding: "1rem",
+  };
+
   theme.typography.subtitle1 = {
     paddingLeft: "1rem",
     marginBottom: "2rem",
@@ -116,10 +120,11 @@ const Item = () => {
             <Typography variant="body2">{attributes.description}</Typography>
           </ThemeProvider>
           <SizesButton
+            id="select-size"
             aria-controls={open ? "basic-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
+            onClick={(e) => handleClick(e)}
           >
             {size ? `Size: ${size}` : "Select size"}
           </SizesButton>
@@ -129,7 +134,7 @@ const Item = () => {
             open={open}
             onClose={handleClose}
             MenuListProps={{
-              "aria-labelledby": "basic-button",
+              "aria-labelledby": "select-size",
             }}
           >
             {attributes.availableSizes.map((size) => (

@@ -1,22 +1,16 @@
 import React from "react";
+import { Paper, Container, Typography } from "@material-ui/core";
 import "./styles.css";
 
 const Cart = () => {
   // const [items, setItems] = useState([]);
 
   return (
-    <div className="cart-wrapper">
-      {/* <div className="order-summary">
-        <h1>Order summary</h1>
-        <div className="order-summary-details">
-          {items[0] && (
-            <div>
-              <p>You have items!</p>
-            </div>
-          )}
-        </div>
-      </div> */}
-    </div>
+    <Container maxWidth="sm">
+      <Paper elevation={3}>
+        <Typography variant="h4">Order summary</Typography>
+      </Paper>
+    </Container>
   );
 };
 

@@ -100,13 +100,6 @@
   }
 }
 
-/* CART */
-
-.cart-wrapper {
-  width: 50%;
-  margin: auto;
-}
-
 .no-items-msg {
   position: absolute;
   margin: auto;
