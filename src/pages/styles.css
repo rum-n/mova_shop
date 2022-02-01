@@ -104,3 +104,10 @@
   position: absolute;
   margin: auto;
 }
+
+/* Cart */
+
+.cart-img {
+  width: 10rem;
+  margin-top: 1rem;
+}

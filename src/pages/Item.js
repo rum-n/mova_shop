@@ -167,8 +167,11 @@ const Item = () => {
               onClick={() =>
                 dispatch(
                   addToCart({
+                    name: attributes.displayName,
                     itemId: attributes.itemId,
                     size: size,
+                    price: attributes.currentPrice,
+                    img: attributes.picture,
                   })
                 )
               }

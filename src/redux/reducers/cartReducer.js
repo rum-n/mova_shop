@@ -7,6 +7,7 @@ export default function cartReducer(state = [], action) {
     case REMOVE_FROM_CART:
       return state.filter((e) => {
         if (e.itemId !== action.payload.itemId) {
+          console.log(e.itemId);
           return true;
         }
         return false;

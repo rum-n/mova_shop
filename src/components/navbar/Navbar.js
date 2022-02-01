@@ -4,10 +4,16 @@ import Button from "@material-ui/core/Button";
 import { styled } from "@material-ui/core/styles";
 import { purple } from "@material-ui/core/colors";
 import "./styles.css";
-
 import { connect } from "react-redux";
 
-const Navbar = () => {
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    cart: state.cart,
+  };
+};
+
+const Navbar = ({ cart }) => {
   const [cartCount, setCartCount] = useState(0);
 
   const CartButton = styled(Button)(({ theme }) => ({
@@ -21,13 +27,15 @@ const Navbar = () => {
     },
   }));
 
-  // useEffect(() => {
-  //   let count = 0;
-  //   cart.forEach((item) => {
-  //     count += item;
-  //   });
-  //   setCartCount(count);
-  // }, [cart, cartCount]);
+  useEffect(() => {
+    let count = 0;
+    let items = [];
+    cart.forEach((item) => {
+      items.push(item);
+      count = items.length;
+    });
+    setCartCount(count);
+  }, [cart, cartCount]);
 
   return (
     <nav>
@@ -48,4 +56,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default connect(mapStateToProps, null)(Navbar);
