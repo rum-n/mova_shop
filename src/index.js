@@ -10,8 +10,30 @@ import thunk from "redux-thunk";
 import rootReducer from "./redux/reducers";
 import { fetchData } from "./redux/actions";
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
-store.dispatch(fetchData());
+const saveState = (state) => {
+  if (state.cart.length !== 0) {
+    localStorage.setItem("state", JSON.stringify(state));
+  }
+};
+
+const getState = () => {
+  try {
+    const s = localStorage.getItem("state");
+    if (s === null) return undefined;
+    return JSON.parse(s);
+  } catch (e) {
+    return undefined;
+  }
+};
+
+const initialState = getState();
+const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
+
+store.subscribe(() => {
+  saveState({
+    cart: store.getState().cart,
+  });
+});
 
 ReactDOM.render(
   <React.StrictMode>

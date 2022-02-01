@@ -21,26 +21,21 @@ import { purple } from "@material-ui/core/colors";
 import axios from "axios";
 
 //  Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
-import { addToCart, removeFromCart } from "../redux/actions/index";
+import { addToCart } from "../redux/actions/index";
 
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    products: state.products,
     cart: state.cart,
   };
 };
 
 const Item = () => {
-  // const { productId } = useParams();
   const [singleItem, setSingleItem] = useState([]);
   const [size, setSize] = useState("");
   const params = useParams();
-  let product = useSelector((state) => state.product);
-
-  // const { image, title, price, category, description } = product;
   const theme = createTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -168,10 +163,11 @@ const Item = () => {
           </Menu>
           <CardActions>
             <AddToCartButton
+              disabled={size ? false : true}
               onClick={() =>
                 dispatch(
                   addToCart({
-                    product: attributes.itemId,
+                    itemId: attributes.itemId,
                     size: size,
                   })
                 )
