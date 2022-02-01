@@ -57,17 +57,6 @@ const Collection = () => {
     textDecoration: "line-through",
   };
 
-  const AddToCartButton = styled(Button)(() => ({
-    margin: "1rem 0rem 0.5rem 0.5rem",
-    border: "1px solid #aaa",
-    fontWeight: "600",
-    backgroundColor: purple[50],
-    "&:hover": {
-      backgroundColor: purple[400],
-      color: "#fff",
-    },
-  }));
-
   const DetailsButton = styled(Button)(() => ({
     margin: "1rem 0rem 0.5rem 0.5rem",
     border: "1px solid #aaa",
@@ -143,7 +132,6 @@ const Collection = () => {
                     >
                       <DetailsButton size="small">View Details</DetailsButton>
                     </Link>
-                    <AddToCartButton size="small">Add to Cart</AddToCartButton>
                   </CardActions>
                 </Card>
               </Grid>

@@ -4,6 +4,26 @@ nav {
   justify-content: space-between;
 }
 
+.cart-count {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  border-radius: 50%;
+  width: 1.2rem;
+  vertical-align: middle;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  align-self: center;
+  padding: 0.2px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  margin-left: 0.2rem;
+}
+
+.hide-count {
+  display: none;
+}
+
 .logo h1 span {
   color: #cc59bd;
 }

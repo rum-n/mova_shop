@@ -10,8 +10,6 @@ import {
   Typography,
   CardActions,
   Button,
-  Menu,
-  MenuItem,
   Chip,
   Box,
 } from "@material-ui/core";
@@ -25,17 +23,7 @@ const Category = () => {
   const [tags, setTags] = useState([]);
 
   const itemsInCategory = `https://5m6exoj3o7.execute-api.eu-west-1.amazonaws.com/prod/items?category=${params.categoryId}`;
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const theme = createTheme();
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const tagClicked = (tag) => {
     const newItems = items.filter((item) => item.tags.includes(tag));
@@ -68,18 +56,6 @@ const Category = () => {
     fontSize: "1.2rem",
     textDecoration: "line-through",
   };
-
-  const AddToCartButton = styled(Button)(() => ({
-    margin: "1rem 0rem 0.5rem 0.5rem",
-    padding: "0.3rem 0.7rem",
-    border: "1px solid #aaa",
-    fontWeight: "600",
-    backgroundColor: purple[50],
-    "&:hover": {
-      backgroundColor: purple[400],
-      color: "#fff",
-    },
-  }));
 
   const DetailsButton = styled(Button)(() => ({
     margin: "1rem 0rem 0.5rem 0.5rem",
@@ -150,26 +126,6 @@ const Category = () => {
                     ${item.originalPrice}
                   </Typography>
                 </ThemeProvider>
-                <Button
-                  id="basic-button"
-                  aria-controls={open ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClick}
-                ></Button>
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                  }}
-                >
-                  {item.availableSizes.map((size) => (
-                    <MenuItem onClick={handleClose}>{size}</MenuItem>
-                  ))}
-                </Menu>
                 <CardActions>
                   <Link
                     to={{
@@ -178,7 +134,6 @@ const Category = () => {
                   >
                     <DetailsButton size="small">View Details</DetailsButton>
                   </Link>
-                  <AddToCartButton size="small">Add to Cart</AddToCartButton>
                 </CardActions>
               </Card>
             </Grid>

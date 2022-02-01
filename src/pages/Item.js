@@ -15,7 +15,10 @@ import { purple } from "@material-ui/core/colors";
 import axios from "axios";
 import "./styles.css";
 
-const Item = () => {
+import { connect } from "react-redux";
+import { addToCart } from "../redux/Cart/cart-actions";
+
+const Item = ({ products, addToCart }) => {
   const [singleItem, setSingleItem] = useState([]);
   const [size, setSize] = useState("");
   const params = useParams();
@@ -138,11 +141,18 @@ const Item = () => {
             }}
           >
             {attributes.availableSizes.map((size) => (
-              <MenuItem onClick={() => handleSizeChoice(size)}>{size}</MenuItem>
+              <MenuItem key={size} onClick={() => handleSizeChoice(size)}>
+                {size}
+              </MenuItem>
             ))}
           </Menu>
           <CardActions>
-            <AddToCartButton size="small">Add to Cart</AddToCartButton>
+            <AddToCartButton
+              onClick={() => addToCart(attributes.itemId)}
+              size="small"
+            >
+              Add to Cart
+            </AddToCartButton>
           </CardActions>
         </Paper>
       ))}
@@ -150,4 +160,16 @@ const Item = () => {
   );
 };
 
-export default Item;
+const mapStateToProps = (state) => {
+  return {
+    products: state.cart.products,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (id) => dispatch(addToCart(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
