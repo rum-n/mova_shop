@@ -7,7 +7,7 @@ import "./styles.css";
 
 import { connect } from "react-redux";
 
-const Navbar = ({ cart }) => {
+const Navbar = () => {
   const [cartCount, setCartCount] = useState(0);
 
   const CartButton = styled(Button)(({ theme }) => ({
@@ -21,13 +21,13 @@ const Navbar = ({ cart }) => {
     },
   }));
 
-  useEffect(() => {
-    let count = 0;
-    cart.forEach((item) => {
-      count += item;
-    });
-    setCartCount(count);
-  }, [cart, cartCount]);
+  // useEffect(() => {
+  //   let count = 0;
+  //   cart.forEach((item) => {
+  //     count += item;
+  //   });
+  //   setCartCount(count);
+  // }, [cart, cartCount]);
 
   return (
     <nav>
@@ -48,10 +48,4 @@ const Navbar = ({ cart }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    cart: state.cart.cart,
-  };
-};
-
-export default connect(mapStateToProps)(Navbar);
+export default Navbar;

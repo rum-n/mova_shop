@@ -1,5 +1,9 @@
+// React Core
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "./styles.css";
+
+// Material UI
 import {
   Paper,
   Container,
@@ -12,20 +16,51 @@ import {
 } from "@material-ui/core";
 import { createTheme, ThemeProvider, styled } from "@material-ui/core/styles";
 import { purple } from "@material-ui/core/colors";
+
+// Axios
 import axios from "axios";
-import "./styles.css";
 
+//  Redux
+import { useDispatch, useSelector } from "react-redux";
 import { connect } from "react-redux";
-import { addToCart } from "../redux/Cart/cart-actions";
+import { addToCart, removeFromCart } from "../redux/actions/index";
 
-const Item = ({ products, addToCart }) => {
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    products: state.products,
+    cart: state.cart,
+  };
+};
+
+const Item = () => {
+  // const { productId } = useParams();
   const [singleItem, setSingleItem] = useState([]);
   const [size, setSize] = useState("");
   const params = useParams();
+  let product = useSelector((state) => state.product);
+
+  // const { image, title, price, category, description } = product;
   const theme = createTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const itemsDetails = ` https://5m6exoj3o7.execute-api.eu-west-1.amazonaws.com/prod/items`;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let isSubscribed = true;
+    axios.get(itemsDetails).then((response) => {
+      if (isSubscribed) {
+        const oneItem = response.data.filter(
+          (item) => item.itemId === params.itemId
+        );
+        setSingleItem(oneItem);
+      }
+    });
+    return () => {
+      isSubscribed = false;
+    };
+  }, [itemsDetails, params.itemId]);
 
   theme.typography.h5 = {
     padding: "1rem",
@@ -87,21 +122,6 @@ const Item = ({ products, addToCart }) => {
     setAnchorEl(null);
   };
 
-  useEffect(() => {
-    let isSubscribed = true;
-    axios.get(itemsDetails).then((response) => {
-      if (isSubscribed) {
-        const oneItem = response.data.filter(
-          (item) => item.itemId === params.itemId
-        );
-        setSingleItem(oneItem);
-      }
-    });
-    return () => {
-      isSubscribed = false;
-    };
-  }, [itemsDetails, params.itemId]);
-
   return (
     <Container maxWidth="sm">
       {singleItem.map((attributes) => (
@@ -148,8 +168,14 @@ const Item = ({ products, addToCart }) => {
           </Menu>
           <CardActions>
             <AddToCartButton
-              onClick={() => addToCart(attributes.itemId)}
-              size="small"
+              onClick={() =>
+                dispatch(
+                  addToCart({
+                    product: attributes.itemId,
+                    size: size,
+                  })
+                )
+              }
             >
               Add to Cart
             </AddToCartButton>
@@ -160,16 +186,4 @@ const Item = ({ products, addToCart }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    products: state.cart.products,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addToCart: (id) => dispatch(addToCart(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Item);
+export default connect(mapStateToProps, null)(Item);
