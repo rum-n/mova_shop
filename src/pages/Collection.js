@@ -99,7 +99,7 @@ const Collection = () => {
       {!loading && (
         <Grid container spacing={2}>
           {items.map((item) => (
-            <Grid key={item.itemId} item xs={12} sm={4}>
+            <Grid key={item.itemId} item xs={12} sm={3}>
               <Card sx={{ maxWidth: 345, padding: 25 }} variant="outlined">
                 <CardMedia
                   component="img"

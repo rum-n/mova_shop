@@ -12,7 +12,6 @@ import "./styles.css";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     cart: state.cart,
   };

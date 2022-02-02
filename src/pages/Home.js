@@ -8,7 +8,7 @@ import snoflake from "./../assets/winter.png";
 import tshirt from "./../assets/tshirt.png";
 
 // Material UI
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Box } from "@material-ui/core";
 
 // API calls
 import axios from "axios";
@@ -49,7 +49,7 @@ const Home = () => {
         <Grid
           item
           xs={12}
-          sm={5}
+          sm={4}
           className={
             activeMenu === "category" ? "active-menu-item" : "categories"
           }
@@ -61,7 +61,7 @@ const Home = () => {
         <Grid
           item
           xs={12}
-          sm={5}
+          sm={4}
           className={
             activeMenu === "collection" ? "active-menu-item" : "collections"
           }
@@ -72,7 +72,7 @@ const Home = () => {
         </Grid>
       </Grid>
 
-      <div className="secondary-menu">
+      <Grid container justify="center">
         {activeMenu === "collection" &&
           collections.map((option) => (
             <Link
@@ -81,9 +81,9 @@ const Home = () => {
                 pathname: `/collection/${option.collectionId}`,
               }}
             >
-              <div className="menu-card">
+              <Box className="menu-card">
                 <p>{option.displayName}</p>
-              </div>
+              </Box>
             </Link>
           ))}
 
@@ -95,12 +95,12 @@ const Home = () => {
                 pathname: `/category/${option.categoryId}`,
               }}
             >
-              <div className="menu-card">
+              <Box className="menu-card">
                 <p>{option.displayName}</p>
-              </div>
+              </Box>
             </Link>
           ))}
-      </div>
+      </Grid>
     </Container>
   );
 };
