@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./styles.css";
-import Container from "@material-ui/core/Container";
+import { Container, Grid } from "@material-ui/core";
 import snoflake from "./../assets/winter.png";
 import tshirt from "./../assets/tshirt.png";
 import { Link } from "react-router-dom";
@@ -34,8 +34,15 @@ const Home = () => {
 
   return (
     <Container maxWidth="lg">
-      <div className="main-menu">
-        <div
+      <div className="intro">
+        <h1 className="title">Your one-stop shop for sportswear</h1>
+        <h2>Shop for shoes, hoodies, dresses and many more!</h2>
+      </div>
+      <Grid container spacing={5} justify="center">
+        <Grid
+          item
+          xs={12}
+          sm={5}
           className={
             activeMenu === "category" ? "active-menu-item" : "categories"
           }
@@ -43,8 +50,11 @@ const Home = () => {
         >
           <img className="menu-img" src={tshirt} alt="Categories" />
           <h1>Shop Categories</h1>
-        </div>
-        <div
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={5}
           className={
             activeMenu === "collection" ? "active-menu-item" : "collections"
           }
@@ -52,8 +62,8 @@ const Home = () => {
         >
           <img className="menu-img" src={snoflake} alt="Collections" />
           <h1>Shop Collections</h1>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
 
       <div className="secondary-menu">
         {activeMenu === "collection" &&

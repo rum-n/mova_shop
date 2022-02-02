@@ -1,10 +1,14 @@
 /* HOME */
 
-.main-menu {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
+.intro {
+  margin: auto;
+  width: 60%;
+  margin-bottom: 5rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
 }
 
 .categories,
@@ -12,8 +16,6 @@
   width: 40%;
   min-height: 5rem;
   border-radius: 7px;
-  -webkit-box-shadow: 7px 7px 24px 4px #cfc4c6;
-  -moz-box-shadow: 7px 7px 24px 4px #cfc4c6;
   box-shadow: 3px 3px 34px 4px #cfc4c6;
   padding: 1rem;
   text-align: center;
@@ -41,7 +43,7 @@
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
-  border: 1px solid black;
+  border: 1px solid #aaa;
   background-color: #ffffff;
 }
 
@@ -62,7 +64,7 @@
 }
 
 .menu-card {
-  border: 1px solid black;
+  border: 1px solid #aaa;
   margin-top: 3rem;
   border-radius: 6px;
   padding: 0.3rem 2rem;

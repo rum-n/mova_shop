@@ -89,7 +89,7 @@ const Category = () => {
       {!loading && items.length > 0 ? (
         <Grid container spacing={2}>
           {items.map((item) => (
-            <Grid item xs={3} key={item.itemId}>
+            <Grid item xs={12} sm={6} key={item.itemId}>
               <Card variant="outlined">
                 <CardMedia
                   component="img"
