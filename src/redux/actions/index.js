@@ -14,6 +14,7 @@ export const addToCart = (item) => {
 };
 
 export const removeFromCart = (itemId) => {
+  console.log(itemId);
   return {
     type: REMOVE_FROM_CART,
     payload: {

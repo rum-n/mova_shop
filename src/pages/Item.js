@@ -11,8 +11,6 @@ import {
   CardMedia,
   CardActions,
   Button,
-  Menu,
-  MenuItem,
 } from "@material-ui/core";
 import { createTheme, ThemeProvider, styled } from "@material-ui/core/styles";
 import { purple } from "@material-ui/core/colors";
@@ -37,8 +35,6 @@ const Item = () => {
   const [size, setSize] = useState("");
   const params = useParams();
   const theme = createTheme();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const itemsDetails = ` https://5m6exoj3o7.execute-api.eu-west-1.amazonaws.com/prod/items`;
   const dispatch = useDispatch();
 
@@ -92,29 +88,8 @@ const Item = () => {
     },
   }));
 
-  const SizesButton = styled(Button)(() => ({
-    margin: "1rem 0rem 0.5rem 1rem",
-    padding: "0.5rem 1rem",
-    border: "1px solid #aaa",
-    fontWeight: "600",
-    backgroundColor: "#fff",
-    "&:hover": {
-      backgroundColor: "#aaa",
-      color: "#fff",
-    },
-  }));
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleSizeChoice = (size) => {
-    setSize(size);
-    setAnchorEl(null);
+  const handleSizeChoice = (event) => {
+    setSize(event.target.value);
   };
 
   return (
@@ -137,30 +112,23 @@ const Item = () => {
             </Typography>
             <Typography variant="body2">{attributes.description}</Typography>
           </ThemeProvider>
-          <SizesButton
-            id="select-size"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={(e) => handleClick(e)}
+          <select
+            id="size"
+            placeholder="Select size"
+            name="size"
+            className="size-dropdown"
+            value={size}
+            onChange={handleSizeChoice}
           >
-            {size ? `Size: ${size}` : "Select size"}
-          </SizesButton>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "select-size",
-            }}
-          >
+            <option disabled selected>
+              Select size
+            </option>
             {attributes.availableSizes.map((size) => (
-              <MenuItem key={size} onClick={() => handleSizeChoice(size)}>
-                {size}
-              </MenuItem>
+              <option value={size} key={size}>
+                Size: {size}
+              </option>
             ))}
-          </Menu>
+          </select>
           <CardActions>
             <AddToCartButton
               disabled={size ? false : true}

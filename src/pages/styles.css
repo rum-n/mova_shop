@@ -111,3 +111,15 @@
   width: 10rem;
   margin-top: 1rem;
 }
+
+/* Item */
+
+.size-dropdown {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+}
+.size-dropdown:hover {
+  cursor: pointer;
+}

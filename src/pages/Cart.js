@@ -59,7 +59,7 @@ const Cart = ({ cart }) => {
                 alt={product.displayName}
               />
               <Typography variant="h6">{product.name}</Typography>
-              <Typography variant="h6">{product.size}</Typography>
+              <Typography variant="h6">${product.size}</Typography>
               <Typography variant="h6">{product.price}</Typography>
               <Button
                 variant="outlined"
@@ -71,7 +71,7 @@ const Cart = ({ cart }) => {
             </Box>
           ))}
           <Box sx={{ textAlign: "right", width: "70%" }}>
-            <Typography variant="h5">Total price: {totalPrice}</Typography>
+            <Typography variant="h5">Total price: ${totalPrice}</Typography>
           </Box>
           <Box sx={{ margin: "3rem auto 1rem", width: "20%" }}>
             <Button variant="contained" color="primary">
@@ -84,10 +84,10 @@ const Cart = ({ cart }) => {
   );
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     removeFromCart: (id) => dispatch(removeFromCart(id)),
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeFromCart: (id) => dispatch(removeFromCart(id)),
+  };
+};
 
-export default connect(mapStateToProps, null)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
