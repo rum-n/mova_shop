@@ -11,6 +11,10 @@ import {
   CardMedia,
   CardActions,
   Button,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  DialogContentText,
 } from "@material-ui/core";
 import { createTheme, ThemeProvider, styled } from "@material-ui/core/styles";
 import { purple } from "@material-ui/core/colors";
@@ -24,7 +28,6 @@ import { connect } from "react-redux";
 import { addToCart } from "../redux/actions/index";
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     cart: state.cart,
   };
@@ -37,6 +40,7 @@ const Item = () => {
   const theme = createTheme();
   const itemsDetails = ` https://5m6exoj3o7.execute-api.eu-west-1.amazonaws.com/prod/items`;
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -92,6 +96,15 @@ const Item = () => {
     setSize(event.target.value);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const itemAdded = (name, size) => {
+    setOpen(true);
+    // alert(`You've added ${name}, size ${size} to your cart!`);
+  };
+
   return (
     <Container maxWidth="sm">
       {singleItem.map((attributes) => (
@@ -117,10 +130,10 @@ const Item = () => {
             placeholder="Select size"
             name="size"
             className="size-dropdown"
-            value={size}
             onChange={handleSizeChoice}
+            defaultValue={"default"}
           >
-            <option disabled selected>
+            <option disabled value="default">
               Select size
             </option>
             {attributes.availableSizes.map((size) => (
@@ -140,13 +153,29 @@ const Item = () => {
                     size: size,
                     price: attributes.currentPrice,
                     img: attributes.picture,
-                  })
+                  }),
+                  itemAdded(attributes.displayName, size)
                 )
               }
             >
               Add to Cart
             </AddToCartButton>
           </CardActions>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {`Yay! You've added ${attributes.displayName}, size ${size} to your cart!`}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Close</Button>
+            </DialogActions>
+          </Dialog>
         </Paper>
       ))}
     </Container>

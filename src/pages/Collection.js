@@ -71,7 +71,6 @@ const Collection = () => {
   useEffect(() => {
     axios.get(itemsInCollection).then((response) => {
       setItems(response.data);
-      console.log(response.data);
     });
     setLoading(false);
   }, [itemsInCollection]);
