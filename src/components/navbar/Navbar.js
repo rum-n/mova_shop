@@ -1,9 +1,14 @@
+// React Core
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+
+// Material UI
 import Button from "@material-ui/core/Button";
 import { styled } from "@material-ui/core/styles";
 import { purple } from "@material-ui/core/colors";
 import "./styles.css";
+
+// Redux
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {

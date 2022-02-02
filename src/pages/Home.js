@@ -1,10 +1,17 @@
+// React Core
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import "./styles.css";
-import { Container, Grid } from "@material-ui/core";
+
+//  Assets
 import snoflake from "./../assets/winter.png";
 import tshirt from "./../assets/tshirt.png";
-import { Link } from "react-router-dom";
+
+// Material UI
+import { Container, Grid } from "@material-ui/core";
+
+// API calls
+import axios from "axios";
 
 const Home = () => {
   const [categories, setCategories] = useState([]);

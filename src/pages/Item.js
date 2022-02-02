@@ -19,7 +19,7 @@ import {
 import { createTheme, ThemeProvider, styled } from "@material-ui/core/styles";
 import { purple } from "@material-ui/core/colors";
 
-// Axios
+// API calls
 import axios from "axios";
 
 //  Redux
@@ -100,9 +100,8 @@ const Item = () => {
     setOpen(false);
   };
 
-  const itemAdded = (name, size) => {
+  const itemAdded = () => {
     setOpen(true);
-    // alert(`You've added ${name}, size ${size} to your cart!`);
   };
 
   return (

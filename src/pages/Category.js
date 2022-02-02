@@ -1,5 +1,9 @@
+// React Core
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import "./styles.css";
+
+// Material UI
 import { createTheme, ThemeProvider, styled } from "@material-ui/core/styles";
 import { purple } from "@material-ui/core/colors";
 import {
@@ -13,8 +17,9 @@ import {
   Chip,
   Box,
 } from "@material-ui/core";
+
+// API calls
 import axios from "axios";
-import "./styles.css";
 
 const Category = () => {
   const [items, setItems] = useState([]);
@@ -73,20 +78,28 @@ const Category = () => {
     setLoading(true);
     axios.get(itemsInCategory).then((response) => {
       setItems(response.data);
+      if (response.data) {
+        setLoading(false);
+      }
     });
-    setLoading(false);
   }, [itemsInCategory]);
 
   return (
     <Container>
+      <h1 className="secondary-title">{params.categoryId}</h1>
+      {!loading && (
+        <h2 className={items.length === 0 ? "no-items-msg" : "hidden"}>
+          Sorry, there are currently no items in this category!
+        </h2>
+      )}
+      {loading && <p className="secondary-title">Loading...</p>}
       {tags.length > 0 && (
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Typography variant="h5">Tag:</Typography>
           <Chip label={tags} size="small" onClick={() => removeTag()} />
         </Box>
       )}
-      {loading && <p>Loading...</p>}
-      {!loading && items.length > 0 ? (
+      {!loading && (
         <Grid container spacing={2}>
           {items.map((item) => (
             <Grid item xs={12} sm={6} key={item.itemId}>
@@ -139,10 +152,6 @@ const Category = () => {
             </Grid>
           ))}
         </Grid>
-      ) : (
-        <h2 className="no-items-msg">
-          {"Sorry, there are currently no items in this category!"}
-        </h2>
       )}
     </Container>
   );

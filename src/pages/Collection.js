@@ -1,5 +1,9 @@
+// React Core
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import "./styles.css";
+
+// Material UI
 import {
   Container,
   Grid,
@@ -13,8 +17,9 @@ import {
 } from "@material-ui/core";
 import { createTheme, ThemeProvider, styled } from "@material-ui/core/styles";
 import { purple } from "@material-ui/core/colors";
+
+// API calss
 import axios from "axios";
-import "./styles.css";
 
 const Collection = () => {
   const [items, setItems] = useState([]);
@@ -71,12 +76,20 @@ const Collection = () => {
   useEffect(() => {
     axios.get(itemsInCollection).then((response) => {
       setItems(response.data);
+      if (response.data) {
+        setLoading(false);
+      }
     });
-    setLoading(false);
   }, [itemsInCollection]);
 
   return (
     <Container>
+      <h1 className="secondary-title">{params.collectionId}</h1>
+      {!loading && (
+        <h2 className={items.length === 0 ? "no-items-msg" : "hidden"}>
+          Sorry, there are currently no items in this category!
+        </h2>
+      )}
       {tags.length > 0 && (
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Typography variant="h5">Tag:</Typography>
@@ -85,61 +98,55 @@ const Collection = () => {
       )}
       {!loading && (
         <Grid container spacing={2}>
-          {items.length > 0 ? (
-            items.map((item) => (
-              <Grid key={item.itemId} item xs={12} sm={4}>
-                <Card sx={{ maxWidth: 345, padding: 25 }} variant="outlined">
-                  <CardMedia
-                    component="img"
-                    height="350"
-                    image={item.picture}
-                    alt={item.displayName}
-                  />
-                  <ThemeProvider theme={theme}>
-                    <Typography gutterBottom variant="h5">
-                      {item.displayName}
-                    </Typography>
-                    <Box
-                      sx={{
-                        paddingLeft: "1rem",
-                        marginBottom: "1rem",
-                        marginTop: "-1rem",
-                        fontSize: "0.2rem",
-                      }}
-                    >
-                      {item.tags.map((tag) => (
-                        <Chip
-                          key={tag}
-                          label={tag}
-                          size="small"
-                          onClick={() => tagClicked(tag)}
-                        />
-                      ))}
-                    </Box>
-                    <Typography color="primary" variant="subtitle1">
-                      ${item.currentPrice}
-                    </Typography>
-                    <Typography color="secondary" variant="subtitle2">
-                      ${item.originalPrice}
-                    </Typography>
-                  </ThemeProvider>
-                  <CardActions>
-                    <Link
-                      to={{
-                        pathname: `/item/${item.itemId}`,
-                      }}
-                    >
-                      <DetailsButton size="small">View Details</DetailsButton>
-                    </Link>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))
-          ) : (
-            <h2 className="no-items-msg">
-              {"Sorry, there are currently no items in this category!"}
-            </h2>
-          )}
+          {items.map((item) => (
+            <Grid key={item.itemId} item xs={12} sm={4}>
+              <Card sx={{ maxWidth: 345, padding: 25 }} variant="outlined">
+                <CardMedia
+                  component="img"
+                  height="350"
+                  image={item.picture}
+                  alt={item.displayName}
+                />
+                <ThemeProvider theme={theme}>
+                  <Typography gutterBottom variant="h5">
+                    {item.displayName}
+                  </Typography>
+                  <Box
+                    sx={{
+                      paddingLeft: "1rem",
+                      marginBottom: "1rem",
+                      marginTop: "-1rem",
+                      fontSize: "0.2rem",
+                    }}
+                  >
+                    {item.tags.map((tag) => (
+                      <Chip
+                        key={tag}
+                        label={tag}
+                        size="small"
+                        onClick={() => tagClicked(tag)}
+                      />
+                    ))}
+                  </Box>
+                  <Typography color="primary" variant="subtitle1">
+                    ${item.currentPrice}
+                  </Typography>
+                  <Typography color="secondary" variant="subtitle2">
+                    ${item.originalPrice}
+                  </Typography>
+                </ThemeProvider>
+                <CardActions>
+                  <Link
+                    to={{
+                      pathname: `/item/${item.itemId}`,
+                    }}
+                  >
+                    <DetailsButton size="small">View Details</DetailsButton>
+                  </Link>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       )}
     </Container>
